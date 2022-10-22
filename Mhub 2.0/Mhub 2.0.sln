@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mhub 2.0", "Mhub 2.0\Mhub 2.0.csproj", "{29907593-63E6-424A-8FAF-F624A2E1520C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29907593-63E6-424A-8FAF-F624A2E1520C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29907593-63E6-424A-8FAF-F624A2E1520C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29907593-63E6-424A-8FAF-F624A2E1520C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29907593-63E6-424A-8FAF-F624A2E1520C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CBE691D-DD06-4340-BA04-E2D47A23D924}
+	EndGlobalSection
+EndGlobal
