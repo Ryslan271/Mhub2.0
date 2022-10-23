@@ -20,3 +20,25 @@ E:\папка для программ\Mhub 2.0\Mhub 2.0\bin\Debug\EntityFramewor
 E:\папка для программ\Mhub 2.0\Mhub 2.0\bin\Debug\ru\EntityFramework.resources.dll
 E:\папка для программ\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0_Content.g.cs
 E:\папка для программ\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.CopyComplete
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\Mhub 2.0.exe.config
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\Mhub 2.0.exe
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\Mhub 2.0.pdb
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\EntityFramework.dll
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\EntityFramework.xml
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.AssemblyReference.cache
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.SuggestedBindingRedirects.cache
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\MainWindow.g.cs
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\App.g.cs
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0_Content.g.cs
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0_MarkupCompile.cache
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0_MarkupCompile.lref
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\MainWindow.baml
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.g.resources
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub_2._0.Properties.Resources.resources
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.GenerateResource.cache
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.CoreCompileInputs.cache
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.csproj.CopyComplete
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.exe
+C:\Users\Overlay\Source\Repos\Mhub2\Mhub 2.0\Mhub 2.0\obj\Debug\Mhub 2.0.pdb

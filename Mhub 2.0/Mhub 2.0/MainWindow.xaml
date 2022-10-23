@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mhub_2._0"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="500" Width="800" Loaded="Window_Loaded">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -26,7 +26,7 @@
         <TextBox Grid.Column="0" x:Name="Search" Text="asdasd" Margin="10,5,5,5"/>
         <ComboBox Grid.Column="2" Margin="5,5,5,5" />
         <ComboBox x:Name="SortComponent" Grid.Column="1" Margin="5,5,5,5" SelectionChanged="SortTypeSelect"/>
-        <ListBox HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Row="1" ItemsSource="{Binding Items}">
+        <ListBox HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="1" Grid.Row="1" ItemsSource="{Binding Items}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 10 0 10" VerticalAlignment="Center">
@@ -43,7 +43,7 @@
                                 <TextBlock x:Name="productText" Text="{Binding Path=ProductText}" FontSize="20" VerticalAlignment="Center" Margin="0 3 0 0" FontFamily="20"/>
                             </StackPanel>
                             <TextBlock Grid.Column="1" x:Name="id" Text="{Binding Path=Id}"/>
-                            <TextBlock Grid.Column="1" x:Name="Material" Text="{Binding Path=Material}"/>
+                            <TextBlock Grid.Column="1" x:Name="Material" MaxWidth="400" TextWrapping="Wrap" Text="{Binding Path=Material}"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Orientation="Vertical">
                             <TextBlock x:Name="descriptionText" Text="{Binding Path=DescriptionText}" FontSize="20"/>

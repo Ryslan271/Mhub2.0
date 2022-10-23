@@ -49,7 +49,7 @@ namespace Mhub_2._0
 
         private void SortTypeSelect(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
         public enum SortType
         {
@@ -170,17 +170,19 @@ namespace Mhub_2._0
         public MainViewModel()
         {
             Items = new ObservableCollection<Item>();
-            foreach(var product in DataBase.DatebaseConection.Product)
+
+            foreach (var product in DataBase.DatebaseConection.Product)
             {
-                Items.Add(new Item {
-                                        TypeText = product.TypeProduct.Name,    
-                                        Separator = "|",
-                                        ProductText = product.Name,
-                                        Id = product.id.ToString(),
-                                        Material = $"Материалы: asd",
-                                        DescriptionText = "Стоимость",
-                                        MinText = product.Min.ToString()
-                                    }
+                Items.Add(new Item
+                {
+                    TypeText = product.TypeProduct.Name,
+                    Separator = "|",
+                    ProductText = product.Name,
+                    Id = product.id.ToString(),
+                    Material = $"Материалы: " + string.Join(" ", DataBase.DatebaseConection.Product.Where(pr => pr.id == product.id).SelectMany(c => c.ProductMaterial.Select(p => p.Material.Name)).ToList()),
+                    DescriptionText = "Стоимость",
+                    MinText = product.Min.ToString()
+                }
                          );
             }
             ItemsPerPage = 4;
