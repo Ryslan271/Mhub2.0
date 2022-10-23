@@ -23,9 +23,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" x:Name="Search" Text="asdasd" Margin="10,5,5,5"/>
+        <TextBox Grid.Column="0" x:Name="Search" Margin="10,5,5,5" TextChanged="Search_TextChanged"/>
         <ComboBox Grid.Column="2" Margin="5,5,5,5" />
-        <ComboBox x:Name="SortComponent" Grid.Column="1" Margin="5,5,5,5" SelectionChanged="SortTypeSelect"/>
+        <ComboBox x:Name="SortComponent" Grid.Column="1" Margin="5,5,5,5"/>
         <ListBox HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="1" Grid.Row="1" ItemsSource="{Binding Items}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

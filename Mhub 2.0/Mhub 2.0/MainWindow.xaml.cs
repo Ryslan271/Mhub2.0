@@ -35,6 +35,7 @@ namespace Mhub_2._0
         };
 
         public static MainWindow Instanse;
+        ObservableCollection<Item> lstItem = new ObservableCollection<Item>();
         public MainWindow()
         {
             InitializeComponent();
@@ -47,10 +48,6 @@ namespace Mhub_2._0
             SortComponent.DisplayMemberPath = $"Value";
         }
 
-        private void SortTypeSelect(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
         public enum SortType
         {
             FromAToZ,
@@ -58,6 +55,46 @@ namespace Mhub_2._0
             Cost,
             IdUp,
             IdDown
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string txtOrig = Search.Text;
+            string upper = txtOrig.ToUpper();
+            string lower = txtOrig.ToLower();
+
+            
+
+            MainViewModel main = new MainViewModel();
+            main.Items.Clear();
+            foreach (var product in DataBase.DatebaseConection.Product)
+            {
+                lstItem.Add(new Item
+                {
+                    TypeText = product.TypeProduct.Name,
+                    Separator = "|",
+                    ProductText = product.Name,
+                    Id = product.id.ToString(),
+                    Material = $"Материалы: " + string.Join(" ", DataBase.DatebaseConection.Product.Where(pr => pr.id == product.id).SelectMany(c => c.ProductMaterial.Select(p => p.Material.Name)).ToList()),
+                    DescriptionText = "Стоимость",
+                    MinText = product.Min.ToString()
+                });
+            }
+
+            var empFiltered = from Emp in lstItem
+                              let ename = Emp.ProductText.Trim()
+                              where
+                               ename.StartsWith(lower)
+                               || ename.StartsWith(upper)
+                               || ename.Contains(txtOrig)
+                              select Emp;
+
+            foreach (var item in empFiltered)
+            {
+                main.Items.Add(item);
+            }
+
+            DataContext = main;
         }
     }
 
@@ -141,7 +178,7 @@ namespace Mhub_2._0
             {
                 _page = value;
                 OnPropertyChanged();
-                Collection.Refresh(); // сообщает ICollectionView, что надо перефильтроваться
+                Collection.Refresh();
             }
         }
 
@@ -174,15 +211,15 @@ namespace Mhub_2._0
             foreach (var product in DataBase.DatebaseConection.Product)
             {
                 Items.Add(new Item
-                {
-                    TypeText = product.TypeProduct.Name,
-                    Separator = "|",
-                    ProductText = product.Name,
-                    Id = product.id.ToString(),
-                    Material = $"Материалы: " + string.Join(" ", DataBase.DatebaseConection.Product.Where(pr => pr.id == product.id).SelectMany(c => c.ProductMaterial.Select(p => p.Material.Name)).ToList()),
-                    DescriptionText = "Стоимость",
-                    MinText = product.Min.ToString()
-                }
+                            {
+                                TypeText = product.TypeProduct.Name,
+                                Separator = "|",
+                                ProductText = product.Name,
+                                Id = product.id.ToString(),
+                                Material = $"Материалы: " + string.Join(" ", DataBase.DatebaseConection.Product.Where(pr => pr.id == product.id).SelectMany(c => c.ProductMaterial.Select(p => p.Material.Name)).ToList()),
+                                DescriptionText = "Стоимость",
+                                MinText = product.Min.ToString()
+                            }
                          );
             }
             ItemsPerPage = 4;
