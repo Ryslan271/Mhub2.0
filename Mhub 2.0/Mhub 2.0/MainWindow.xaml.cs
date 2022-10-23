@@ -5,7 +5,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -47,10 +49,6 @@ namespace Mhub_2._0
             SortComponent.DisplayMemberPath = $"Value";
         }
 
-        private void SortTypeSelect(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
         public enum SortType
         {
             FromAToZ,
@@ -58,6 +56,47 @@ namespace Mhub_2._0
             Cost,
             IdUp,
             IdDown
+        }
+
+        private void SortComponent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var numberItem = SortComponent.SelectedIndex;
+            switch (numberItem)
+            {
+                case 0:
+                    UbdateDB(DataBase.DatebaseConection.Product.OrderBy(p => p.TypeProduct.Name));
+                    break;
+                case 1:
+                    UbdateDB(DataBase.DatebaseConection.Product.OrderByDescending(p => p.TypeProduct.Name));
+                    break;
+                case 2:
+                    UbdateDB(DataBase.DatebaseConection.Product.OrderBy(p => p.Min));
+                    break;
+                case 3:
+                    UbdateDB(DataBase.DatebaseConection.Product.OrderBy(p => p.id));
+                    break;
+                case 4:
+                    UbdateDB(DataBase.DatebaseConection.Product.OrderByDescending(p => p.id));
+                    break;
+            }
+        }
+
+        public void UbdateDB(IOrderedQueryable<Product> query)
+        {
+            MainViewModel main = new MainViewModel();
+            main.Items.Clear();
+            foreach (var product in query)
+                main.Items.Add(new Item
+                {
+                    TypeText = product.TypeProduct.Name,
+                    Separator = "|",
+                    ProductText = product.Name,
+                    Id = product.id.ToString(),
+                    Material = $"Материалы: " + string.Join(" ", DataBase.DatebaseConection.Product.Where(pr => pr.id == product.id).SelectMany(c => c.ProductMaterial.Select(p => p.Material.Name)).ToList()),
+                    DescriptionText = "Стоимость",
+                    MinText = product.Min.ToString()
+                });
+            DataContext = main;
         }
     }
 
