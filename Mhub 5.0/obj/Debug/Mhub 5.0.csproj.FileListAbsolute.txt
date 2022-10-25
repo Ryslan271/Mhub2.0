@@ -22,3 +22,27 @@ E:\папка для программ\Mhub 5.0\Mhub 5.0\obj\Debug\Mhub 5.0.cspro
 E:\папка для программ\Mhub 5.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.CopyComplete
 E:\папка для программ\Mhub 5.0\Mhub 5.0\obj\Debug\Mhub 5.0.exe
 E:\папка для программ\Mhub 5.0\Mhub 5.0\obj\Debug\Mhub 5.0.pdb
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\Mhub 5.0.exe.config
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\Mhub 5.0.exe
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\Mhub 5.0.pdb
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\EntityFramework.dll
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\EntityFramework.xml
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.AssemblyReference.cache
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.SuggestedBindingRedirects.cache
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\MainWindow.g.cs
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\App.g.cs
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0_Content.g.cs
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0_MarkupCompile.cache
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0_MarkupCompile.lref
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\MainWindow.baml
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.g.resources
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub_5._0.Properties.Resources.resources
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.GenerateResource.cache
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.CoreCompileInputs.cache
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.csproj.CopyComplete
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.exe
+C:\Users\meshc\Source\Repos\Mhub2.0\Mhub 5.0\obj\Debug\Mhub 5.0.pdb

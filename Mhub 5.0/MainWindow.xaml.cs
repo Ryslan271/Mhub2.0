@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,155 +23,102 @@ namespace Mhub_5._0
     public partial class MainWindow : Window
     {
         public static MainWindow Instanse;
-        static MainViewModel main = new MainViewModel();
-        IOrderedQueryable<Product> productsSorted = DataBase.DatebaseConection.Product;
-        IOrderedQueryable<Product> EmptyProducts;
+        public readonly static MainViewModel main = new MainViewModel();
 
-        private static List<string> DictionarySortType = new List<string>()
+        public readonly IEnumerable<Product> DefaultProdutcts = DataBase.DatebaseConection.Product;
+
+        private static Dictionary<Sorting, string> SortingNames = new Dictionary<Sorting, string>()
         {
-            "Ничего",
-            "От а до я",
-            "От я до а",
-            "По цене",
-            "По возрастанию id",
-            "По убыванию id"
+            { Sorting.AscendingName, "От А до Я" },
+            { Sorting.DescendingName, "От Я до А" },
+            { Sorting.AscendingCost, "По возрастанию цены" },
+            { Sorting.DescendingCost, "По убыванию цены" }
         };
 
-        List<string> DictionaryFilterType = new List<string>() { };
+        private List<TypeProduct> ProductTypes = DataBase.DatebaseConection.TypeProduct.ToList();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            #region Sort component fill
+            SortComponent.ItemsSource = SortingNames;
+            SortComponent.DisplayMemberPath = "Value";
+            SortComponent.SelectedItem = SortingNames.ToArray()[0];
+            #endregion
+            #region Filter component fill
+            TypeProduct defaultValue = new TypeProduct()
+            {
+                id = 0,
+                Name = "Ничего"
+            };
+            ProductTypes.Insert(0, defaultValue);
+            FilterComponent.ItemsSource = ProductTypes;
+            FilterComponent.DisplayMemberPath = "Name";
+            FilterComponent.SelectedItem = defaultValue;
+            #endregion
         }
 
         #region Window_Loaded
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            EmptyProducts = productsSorted;
-
-            var query = from typeProduct in DataBase.DatebaseConection.TypeProduct
-                        select typeProduct;
-
-            DictionaryFilterType.Add("Ничего");
-            foreach (var item in query)
-                DictionaryFilterType.Add(item.Name.ToString());
-
-            Instanse = this; //-
-
-            SortComponent.ItemsSource = DictionarySortType;
-
-            FilterComponent.ItemsSource = DictionaryFilterType;
+            Instanse = this;
         }
         #endregion
 
         #region Сортировка
-        private async void SortComponent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private IEnumerable<Product> Sort(IEnumerable<Product> products)
         {
-            var numberItem = SortComponent.SelectedIndex;
-            ObservableCollection<Product> productsSortFilterSearch =  new ObservableCollection<Product>();
-
-            productsSorted = SortComponent_Result(numberItem);
-
-            // если поле поиска не пустое то перебираем на его основе если же пустое то создаем новый маин и записываем уже его
-            foreach (var item in await Task.Run(() => UbdateDB(productsSorted)))
-                productsSortFilterSearch.Add(item);
-
-            main.Items.Clear();
-            foreach (var item in productsSortFilterSearch.Distinct())
+            Sorting currentSorting = ((KeyValuePair<Sorting, string>)SortComponent.SelectedItem).Key;
+            switch (currentSorting)
             {
-                main.Items.Add(item);
+                case Sorting.AscendingName:
+                    return products.OrderBy(product => product.Name);
+                case Sorting.DescendingName:
+                    return products.OrderByDescending(product => product.Name);
+                case Sorting.AscendingCost:
+                    return products.OrderBy(product => product.Min);
+                case Sorting.DescendingCost:
+                    return products.OrderByDescending(product => product.Min);
+                default:
+                    throw new ArgumentException();
             }
-
-            DataContext = main;
-        }
-
-        public IOrderedQueryable<Product> SortComponent_Result(int numberItem)
-        {
-            switch (numberItem)
-            {
-                case 0:
-                    productsSorted = EmptyProducts;
-                    break;
-                case 1:
-                    productsSorted = productsSorted.OrderBy(p => p.TypeProduct.Name);
-                    break;
-                case 2:
-                    productsSorted = productsSorted.OrderByDescending(p => p.TypeProduct.Name);
-                    break;
-                case 3:
-                    productsSorted = productsSorted.OrderBy(p => p.Min);
-                    break;
-                case 4:
-                    productsSorted = productsSorted.OrderBy(p => p.id);
-                    break;
-                case 5:
-                    productsSorted = productsSorted.OrderByDescending(p => p.id);
-                    break;
-            }
-            return productsSorted;
-        }
-
-        public async Task<ObservableCollection<Product>> UbdateDB(IEnumerable<Product> query)
-        {
-            ObservableCollection<Product> comboList = new ObservableCollection<Product>();
-
-            foreach (var product in query)
-                comboList.Add(product);
-
-            return await Task.FromResult(comboList);
         }
         #endregion
 
         #region Поиск по названию продукта 
-        public async Task<IEnumerable<Product>> AddQuery(IEnumerable<Product> productsSorted)
-        {
-            var empFiltered = from Emp in productsSorted
-                              let ename = Emp.Name.ToLower()
-                              where
-                                  ename.StartsWith(Search.Text.ToLower().Trim())
-                                  || ename.Contains(Search.Text.ToLower().Trim())
-                              select Emp;
-
-            return await Task.FromResult(empFiltered);
-        }
-
-        private async void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            main.Items.Clear();
-
-            foreach (var item in await Task.Run(() => AddQuery(productsSorted)))
-            {
-                main.Items.Add(item);
-            }
-
-            DataContext = main;
-        }
+        private bool IsSearched(Product product) => Regex.IsMatch(product.Name.ToLower(), $@"({Search.Text.Trim().ToLower()})");
         #endregion
 
         #region Фильтры
-        private async void FilterComponent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private bool IsFiltred(Product product)
         {
-            string source = FilterComponent.SelectedItem.ToString();
-            IEnumerable<Product> products = await Task.Run(() => AsyncFilter(productsSorted, source));
-
-            main.Items.Clear();
-
-            foreach (var item in products)
-            {
-                main.Items.Add(item);
-            }
-
-            DataContext = main;
-        }
-        private async Task<IEnumerable<Product>> AsyncFilter(IOrderedQueryable<Product> productsFilter, string source)
-        {
-            var empFiltered = from Emp in productsFilter
-                              where Emp.TypeProduct.Name.ToLower() == source.ToLower()
-                              select Emp;
-
-            return await Task.FromResult(empFiltered);
+            TypeProduct filtredType = (FilterComponent.SelectedItem as TypeProduct);
+            if (filtredType == null || filtredType.Name == "Ничего")
+                return true;
+            return product.TypeProduct == filtredType;
         }
         #endregion
+
+        public void DoStuff()
+        {
+            main.Items = Sort(DefaultProdutcts.Where(product => IsFiltred(product) && IsSearched(product))).ToList();
+            DataContext = main;
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e) => DoStuff();
+
+        enum Sorting
+        {
+            AscendingName,
+            DescendingName,
+            AscendingCost,
+            DescendingCost
+        }
+
+        private void FilterComponent_SelectionChanged(object sender, SelectionChangedEventArgs e) => DoStuff();
+
+        private void SortComponent_SelectionChanged(object sender, SelectionChangedEventArgs e) => DoStuff();
     }
 
     /// <summary>
@@ -237,13 +185,13 @@ namespace Mhub_5._0
     public class MainViewModel : NotifyPropertyChanged
     {
         private int _itemsPerPage;
-        private ObservableCollection<Product> _items;
+        private List<Product> _items;
         private int _page;
         private ICommand _setPageCommand;
 
         private ICollectionView Collection => CollectionViewSource.GetDefaultView(Items);
 
-        public ObservableCollection<Product> Items
+        public List<Product> Items
         {
             get => _items;
             set
@@ -287,7 +235,7 @@ namespace Mhub_5._0
 
         public MainViewModel()
         {
-            Items = new ObservableCollection<Product>();
+            Items = new List<Product>();
 
             foreach (var product in DataBase.DatebaseConection.Product)
             {
