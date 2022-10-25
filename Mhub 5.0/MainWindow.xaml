@@ -1,0 +1,89 @@
+﻿<Window x:Class="Mhub_5._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mhub_5._0"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="800" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local:PagerConverter x:Key="PagerConverter"/>
+        <local:MaterialsConverter x:Key="MaterialsConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0" x:Name="Search" Margin="10,5,5,5" TextChanged="Search_TextChanged"/>
+        <ComboBox x:Name="FilterComponent" Grid.Column="2" Margin="5,5,5,5" SelectionChanged="FilterComponent_SelectionChanged" />
+        <ComboBox x:Name="SortComponent" Grid.Column="1" Margin="5,5,5,5"  SelectionChanged="SortComponent_SelectionChanged"/>
+        <ListBox HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Grid.RowSpan="1" Grid.Row="1" ItemsSource="{Binding Items}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0 10 0 10" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="186*"/>
+                            <ColumnDefinition Width="459*"/>
+                            <ColumnDefinition Width="131*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" x:Name="img" Width="80" Source="Resourse/picture.png" Margin="20 0 0 0"/>
+                        <StackPanel Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="typeText" Text="{Binding Path=TypeProduct.Name}" FontSize="20"/>
+                                <TextBlock x:Name="separator" Text="|" FontSize="20"/>
+                                <TextBlock x:Name="productText" Text="{Binding Path=Name}" FontSize="20" VerticalAlignment="Center" Margin="0 3 0 0" FontFamily="20"/>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" x:Name="id" Text="{Binding Path=id}"/>
+                            <TextBlock Grid.Column="1" x:Name="Material" MaxWidth="400" TextWrapping="Wrap" Text="{Binding Path={}, Converter={StaticResource MaterialsConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Vertical">
+                            <TextBlock x:Name="descriptionText" Text="Стоимость" FontSize="20"/>
+                            <TextBlock x:Name="countText" Text="{Binding Path=Min}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="3" Grid.Row="2">
+            <TextBlock FontSize="15" Padding="0 0 0 2" FontWeight="DemiBold" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3" Text="&lt;"/>
+            <ItemsControl x:Name="Buttons" BorderBrush="AliceBlue" Margin="1,5,1,5">
+                <ItemsControl.ItemsSource>
+                    <MultiBinding Converter="{StaticResource PagerConverter}">
+                        <Binding Path="Items.Count"/>
+                        <Binding Path="ItemsPerPage"/>
+                    </MultiBinding>
+                </ItemsControl.ItemsSource>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button 
+                                Command="{Binding DataContext.SetPageCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                CommandParameter="{Binding}"
+                                Margin="1" Padding="2,0"
+                                Background="White"
+                                BorderBrush="AliceBlue">
+                            <Button.Content>
+                                <TextBlock Text="{Binding}"/>
+                            </Button.Content>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock FontSize="15" Padding="0 0 0 2" FontWeight="DemiBold" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="3" Text=">"/>
+        </StackPanel>
+    </Grid>
+</Window>
